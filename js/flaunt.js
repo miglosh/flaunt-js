@@ -8,7 +8,10 @@
 	http://www.opensource.org/licenses/mit-license.php
 
 	Flaunt JS, stylish responsive navigations with nested click to reveal.
+	
+	Edited by Stefan Fršhlich - http://www.froehlich.it to fix 2 bugs - see Readme.MD.
 */
+
 ;(function($) {
 
 	// DOM ready
@@ -22,14 +25,25 @@
 		
 		// Click to reveal the nav
 		$('.nav-mobile').click(function(){
-			$('.nav-list').toggle();
+			if (typeof $('.nav-list').attr('style') != 'undefined') {
+				$('.nav-list').removeAttr( 'style' );
+			}
+			else {
+				$('.nav-list').toggle();
+			}
 		});
 	
 		// Dynamic binding to on 'click'
 		$('.nav-list').on('click', '.nav-click', function(){
 		
 			// Toggle the nested nav
-			$(this).siblings('.nav-submenu').toggle();
+
+			if (typeof $(this).siblings('.nav-submenu').attr('style') != 'undefined') {
+				$(this).siblings('.nav-submenu').removeAttr( 'style' );
+			}
+			else {
+				$(this).siblings('.nav-submenu').toggle();
+			}
 			
 			// Toggle the arrow using CSS3 transforms
 			$(this).children('.nav-arrow').toggleClass('nav-rotate');
